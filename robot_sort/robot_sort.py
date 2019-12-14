@@ -100,26 +100,26 @@ class SortingRobot:
 
         while True:
 
-            if not self.light_is_on():
+            if not self.light_is_on():  # turn on light to check sort
                 self.set_light_on()
 
-                while self.can_move_right():
+                while self.can_move_right():  # move all the way to right finding largest number
 
                     if self.compare_item() == -1 or self.compare_item() == None:
                         self.swap_item()
                     self.move_right()
 
-                if self.compare_item() == -1:
+                if self.compare_item() == -1:  # if item is larger, swap
                     self.swap_item()
 
-                while self.can_move_left():
+                while self.can_move_left():  # move all the way to left finding smallest number
 
-                    if self.compare_item() == 1:
+                    if self.compare_item() == 1:  # swap is made, not sorted. Swap for smaller number
                         self.set_light_off()
                         self.swap_item()
                     self.move_left()
 
-                if self.compare_item() == 1:
+                if self.compare_item() == 1:  # swap is made, not sorted
                     self.swap_item()
                     self.set_light_off()
             else:
