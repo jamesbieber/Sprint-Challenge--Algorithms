@@ -17,10 +17,3 @@ def count_th(word, place=0):
 
     # place + 2 makes sure that you look at the NEXT 2 places of the string
     return th + count_th(word, place + 1)
-
-
-print(count_th("thththth"))
-print(count_th("abcthefthghith"))
-print(count_th("abcthxyz"))
-print(count_th("thhtthht"))
-print(count_th("THtHThth"))
