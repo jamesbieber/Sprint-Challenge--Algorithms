@@ -81,11 +81,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -93,18 +95,69 @@ class SortingRobot:
         return self._light == "ON"
 
     def sort(self):
-        """
-        Sort the robot's list.
-        """
-        # Fill this out
-        pass
+        # Idea is find the largest element, place at the end. Move left, finding smallest and place at front. Then moving back the other way to find the second largest and so forth.
+        # This should systematically auto sort most of the elements in the middle as the robot goes to find the next n-th smallest/largest element to place.
+
+        while True:
+
+            if not self.light_is_on():  # turn on light to check sort
+                self.set_light_on()
+
+                while self.can_move_right():  # move all the way to right finding largest number
+
+                    if self.compare_item() == -1 or self.compare_item() == None:
+                        self.swap_item()
+                    self.move_right()
+
+                if self.compare_item() == -1:  # if item is larger, swap
+                    self.swap_item()
+
+                while self.can_move_left():  # move all the way to left finding smallest number
+
+                    if self.compare_item() == 1:  # swap is made, not sorted. Swap for smaller number
+                        self.set_light_off()
+                        self.swap_item()
+                    self.move_left()
+
+                if self.compare_item() == 1:  # swap is made, not sorted
+                    self.swap_item()
+                    self.set_light_off()
+            else:
+                break
+
+        # self.swap_item()
+
+        #     while self.can_move_right():
+        #         if self.compare_item() == -1 or self.compare_item() == 0:
+        #             self.swap_item()
+        #         else:
+        #             self.move_right()
+        #     self.move_left()
+        #     while self.compare_item() == -1 or self.compare_item == 0:
+        #         self.move_left()
+        #     self.swap_item()
+
+        #     while self.can_move_left:
+        #         if self.compare_item() == -1 or self.compare_item() == 0:
+        #             self.move_left()
+        #         else:
+        #             self.swap_item()
+        #     if self.compare_item() == -1:
+        #         self.swap_item()
+        #     else:
+        #         while self.compare_item() == 1 or self.compare_item() == 0:
+        #             self.move_right()
+        #         self.swap_item()
+        #         self.move_right()
+        #         self.swap_item()
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+         45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
